@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TodoService {
-    Optional<List<Todo>> getAll();
+    List<Todo> getAll();
     Optional<Todo> getById(Long id);
     void save(Todo todo);
     Void update(Todo todo, Long id);
