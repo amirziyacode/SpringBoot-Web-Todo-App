@@ -9,10 +9,7 @@ import lombok.Data;
 public class Todo {
 
     private  Long id;
-
     private String title;
-
-    private String Description;
-
+    private String description;
     private boolean isDO;
 }
