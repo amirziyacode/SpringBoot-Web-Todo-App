@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+import static jdk.internal.classfile.impl.DirectCodeBuilder.build;
+
 @Service
 public class TodoServiceImpl implements TodoService {
 
@@ -47,7 +49,12 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void save(Todo todo) {
-
+        Todo newTodo = Todo.builder()
+                .id(UUID.randomUUID())
+                .title(todo.getTitle())
+                .description(todo.getDescription())
+                .build();
+        todoMap.put(todo.getId(),newTodo);
     }
 
     @Override
