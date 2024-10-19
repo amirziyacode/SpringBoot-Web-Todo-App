@@ -41,8 +41,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Optional<Todo> getById(Long id) {
-        return Optional.empty();
+    public Optional<Todo> getById(UUID id) {
+        return Optional.ofNullable(todoMap.get(id));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Void update(Todo todo, Long id) {
+    public Void update(Todo todo, UUID id) {
         return null;
     }
 
