@@ -16,12 +16,13 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class TodoController {
+    public static final String TODO_PATCH = "/api/v1/todos";
 
     public final TodoService todoService;
 
 
-    @GetMapping("/api/v1/todos")
+    @GetMapping(value = TODO_PATCH)
     public ResponseEntity<List<Todo>> listTodo(){
-        return new ResponseEntity<>(todoService.getAll(), HttpStatus.FOUND);
+        return new ResponseEntity<>(todoService.getAll(), HttpStatus.OK);
     }
 }
