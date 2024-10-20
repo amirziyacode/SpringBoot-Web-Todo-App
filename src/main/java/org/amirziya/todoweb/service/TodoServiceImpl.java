@@ -46,13 +46,14 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void save(Todo todo) {
+    public Todo save(Todo todo) {
         Todo newTodo = Todo.builder()
                 .id(UUID.randomUUID())
                 .title(todo.getTitle())
                 .description(todo.getDescription())
                 .build();
         todoMap.put(todo.getId(),newTodo);
+        return newTodo;
     }
 
     @Override
