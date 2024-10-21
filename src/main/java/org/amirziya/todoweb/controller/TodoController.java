@@ -35,11 +35,11 @@ public class TodoController {
       return new ResponseEntity<>(todoService.getById(todoId),HttpStatus.FOUND);
     }
 
-    @PutMapping(TODO_PATCH)
+    @PostMapping(TODO_PATCH)
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo){
         Todo saveTodo = todoService.save(todo);
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Location",TODO_PATCH +"/" + saveTodo.getId());
-        return new ResponseEntity<>(httpHeaders,HttpStatus.CREATED);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location",TODO_PATCH +"/" + saveTodo.getId());
+        return new ResponseEntity<>(headers,HttpStatus.CREATED);
     }
 }
