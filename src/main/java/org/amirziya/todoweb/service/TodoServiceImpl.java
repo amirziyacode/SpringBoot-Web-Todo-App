@@ -63,7 +63,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void delete(Todo todo) {
-
+    public void delete(UUID id) {
+        todoMap.remove(id);
     }
 }
