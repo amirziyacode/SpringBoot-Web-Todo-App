@@ -11,6 +11,6 @@ public interface TodoService {
     List<Todo> getAll();
     Optional<Todo> getById(UUID id);
     Todo save(Todo todo);
-    Void update(Todo todo, UUID id);
+    void update(UUID id);
     void delete(UUID id);
 }

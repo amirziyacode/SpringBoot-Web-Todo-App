@@ -48,4 +48,10 @@ public class TodoController {
         todoService.delete(todoId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping(TODO_ID)
+    public ResponseEntity<Todo> updateTodo(@PathVariable("todoId") UUID todoId){
+        todoService.update(todoId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

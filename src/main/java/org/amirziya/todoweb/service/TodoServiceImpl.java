@@ -58,8 +58,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Void update(Todo todo, UUID id) {
-        return null;
+    public void update(UUID id) {
     }
 
     @Override
