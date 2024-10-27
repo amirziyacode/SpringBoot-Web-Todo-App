@@ -59,11 +59,11 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void update(UUID id, Todo upTodo) {
+    public void update(UUID id, Todo todo) {
         Todo updateTodo = todoMap.get(id);
-        updateTodo.setDescription(updateTodo.getDescription());
-        updateTodo.setTitle(upTodo.getTitle());
-        updateTodo.setDO(upTodo.isDO());
+        updateTodo.setDescription(todo.getDescription());
+        updateTodo.setTitle(todo.getTitle());
+        updateTodo.setDO(todo.isDO());
         todoMap.put(id,updateTodo);
     }
 
