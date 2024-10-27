@@ -51,6 +51,7 @@ public class TodoServiceImpl implements TodoService {
                 .id(UUID.randomUUID())
                 .title(todo.getTitle())
                 .description(todo.getDescription())
+                .isDO(todo.isDO())
                 .build();
 
         todoMap.put(todo.getId(),newTodo);
@@ -58,7 +59,12 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void update(UUID id) {
+    public void update(UUID id, Todo upTodo) {
+        Todo updateTodo = todoMap.get(id);
+        updateTodo.setDescription(updateTodo.getDescription());
+        updateTodo.setTitle(upTodo.getTitle());
+        updateTodo.setDO(upTodo.isDO());
+        todoMap.put(id,updateTodo);
     }
 
     @Override

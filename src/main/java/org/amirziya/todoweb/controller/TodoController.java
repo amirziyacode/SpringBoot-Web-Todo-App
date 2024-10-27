@@ -2,7 +2,6 @@ package org.amirziya.todoweb.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.amirziya.todoweb.model.Todo;
 import org.amirziya.todoweb.service.TodoService;
@@ -50,8 +49,8 @@ public class TodoController {
     }
 
     @PutMapping(TODO_ID)
-    public ResponseEntity<Todo> updateTodo(@PathVariable("todoId") UUID todoId){
-        todoService.update(todoId);
+    public ResponseEntity<Todo> updateTodo(@PathVariable("todoId") UUID todoId,@RequestBody Todo todo){
+        todoService.update(todoId, todo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
