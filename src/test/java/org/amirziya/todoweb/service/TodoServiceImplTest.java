@@ -1,5 +1,6 @@
 package org.amirziya.todoweb.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.amirziya.todoweb.controller.TodoController;
 import org.amirziya.todoweb.model.Todo;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,9 @@ class TodoServiceImplTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     TodoServiceImpl todoServiceImp;
 
 
@@ -57,6 +61,17 @@ class TodoServiceImplTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
 
 
+    }
+
+    @Test
+    void crete_Todo() throws Exception {
+        Todo first = todoServiceImp.getAll().get(0);
+        first.setId(null);
+        given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get(1));
+        mockMvc.perform(post(TodoController.TODO_PATCH).contentType(MediaType.APPLICATION_JSON)
+                        .contentType(objectMapper.writeValueAsString(first)))
+                .andExpect(status().isCreated())
+                .andExpect(header().exists("Location"));
     }
 
 }
