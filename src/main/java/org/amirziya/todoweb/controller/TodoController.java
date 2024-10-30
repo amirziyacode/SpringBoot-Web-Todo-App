@@ -37,8 +37,9 @@ public class TodoController {
     @PostMapping(TODO_PATCH)
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo){
         Todo saveTodo = todoService.save(todo);
+
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location",TODO_PATCH +"/" + saveTodo.getId());
+        headers.add("Location",TODO_PATCH +"/" + saveTodo.getId().toString());
         return new ResponseEntity<>(headers,HttpStatus.CREATED);
     }
 

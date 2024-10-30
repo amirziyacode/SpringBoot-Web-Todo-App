@@ -65,11 +65,13 @@ class TodoServiceImplTest {
 
     @Test
     void crete_Todo() throws Exception {
-        Todo first = todoServiceImp.getAll().get(0);
-        first.setId(null);
+        Todo todo = todoServiceImp.getAll().get(0);
+        todo.setId(null);
         given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get(1));
-        mockMvc.perform(post(TodoController.TODO_PATCH).contentType(MediaType.APPLICATION_JSON)
-                        .contentType(objectMapper.writeValueAsString(first)))
+        mockMvc.perform(post(TodoController.TODO_PATCH)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(todo)))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"));
     }
