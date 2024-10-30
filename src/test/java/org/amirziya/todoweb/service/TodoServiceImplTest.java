@@ -3,8 +3,11 @@ package org.amirziya.todoweb.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.amirziya.todoweb.controller.TodoController;
 import org.amirziya.todoweb.model.Todo;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,6 +35,9 @@ class TodoServiceImplTest {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Captor
+    ArgumentCaptor<UUID> uuidArgumentCaptor;
 
     TodoServiceImpl todoServiceImp;
 
@@ -76,4 +82,13 @@ class TodoServiceImplTest {
                 .andExpect(header().exists("Location"));
     }
 
+    @Test
+    void delete_Todo() throws Exception{
+        Todo delTodo = todoServiceImp.getAll().get(0);
+        mockMvc.perform(delete(TodoController.TODO_ID,delTodo.getId())
+                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
+
+        verify(todoService).delete(uuidArgumentCaptor.capture());
+        Assertions.assertThat(delTodo.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+    }
 }
