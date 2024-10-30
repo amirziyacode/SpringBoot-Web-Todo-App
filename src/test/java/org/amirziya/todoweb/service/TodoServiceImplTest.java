@@ -81,7 +81,6 @@ class TodoServiceImplTest {
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"));
     }
-
     @Test
     void delete_Todo() throws Exception{
         Todo delTodo = todoServiceImp.getAll().get(0);
