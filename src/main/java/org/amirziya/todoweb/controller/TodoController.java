@@ -17,6 +17,7 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000") // port react App !!
 public class TodoController {
     public static final String TODO_PATCH = "/api/v1/todos";
     public static final String TODO_ID = TODO_PATCH + "/" + "{todoId}";
