@@ -8,24 +8,24 @@ import java.util.*;
 @Service
 public class TodoServiceImpl implements TodoService {
 
-    private final Map<UUID, Todo> todoMap;
+    private final Map<Integer, Todo> todoMap;
 
     public TodoServiceImpl(){
         this.todoMap = new HashMap<>();
         Todo todo = Todo.builder()
-                .id(UUID.randomUUID())
+                .id(1)
                 .title("Personal")
                 .description("This is Todo !")
                 .build();
 
         Todo todo1 = Todo.builder()
-                .id(UUID.randomUUID())
+                .id(2)
                 .title("Sport")
                 .description("Play Tennis")
                 .build();
 
         Todo todo2 = Todo.builder()
-                .id(UUID.randomUUID())
+                .id(3)
                 .title("Study")
                 .description("Learn Math !")
                 .build();
@@ -41,14 +41,14 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Optional<Todo> getById(UUID id) {
+    public Optional<Todo> getById(int id) {
         return Optional.ofNullable(todoMap.get(id));
     }
 
     @Override
     public Todo save(Todo todo) {
         Todo newTodo = Todo.builder()
-                .id(UUID.randomUUID())
+                .id(todoMap.size()+1)
                 .title(todo.getTitle())
                 .description(todo.getDescription())
                 .isDO(todo.isDO())
@@ -59,7 +59,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void update(UUID id, Todo todo) {
+    public void update(int id, Todo todo) {
         Todo updateTodo = todoMap.get(id);
         updateTodo.setDescription(todo.getDescription());
         updateTodo.setTitle(todo.getTitle());
@@ -68,7 +68,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(int id) {
         todoMap.remove(id);
     }
 }

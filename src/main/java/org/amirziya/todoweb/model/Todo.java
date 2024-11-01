@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Todo {
 
-    private UUID id;
+    private Integer id;
     private String title;
     private String description;
     private boolean isDO;

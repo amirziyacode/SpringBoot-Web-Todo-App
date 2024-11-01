@@ -30,7 +30,7 @@ public class TodoController {
     }
 
     @GetMapping(value = TODO_ID)
-    public ResponseEntity<Optional<Todo>> getTodoById(@PathVariable("todoId") UUID todoId){
+    public ResponseEntity<Optional<Todo>> getTodoById(@PathVariable("todoId") int  todoId){
       return new ResponseEntity<>(todoService.getById(todoId),HttpStatus.FOUND);
     }
 
@@ -44,13 +44,13 @@ public class TodoController {
     }
 
     @DeleteMapping(TODO_ID)
-    public ResponseEntity<Todo> deleteTodo(@PathVariable("todoId") UUID todoId){
+    public ResponseEntity<Todo> deleteTodo(@PathVariable("todoId") int todoId){
         todoService.delete(todoId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(TODO_ID)
-    public ResponseEntity<Todo> updateTodo(@PathVariable("todoId") UUID todoId,@RequestBody Todo todo){
+    public ResponseEntity<Todo> updateTodo(@PathVariable("todoId") int todoId,@RequestBody Todo todo){
         todoService.update(todoId, todo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
