@@ -68,8 +68,7 @@ class TodoServiceImplTest {
 
     @Test
     void crete_Todo() throws Exception {
-        Todo todo = todoServiceImp.getAll().get(0);
-        todo.setId(null);
+        Todo todo = todoServiceImp.getAll().get(0);;
         given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get(1));
         mockMvc.perform(post(TodoController.TODO_PATCH)
                         .accept(MediaType.APPLICATION_JSON)

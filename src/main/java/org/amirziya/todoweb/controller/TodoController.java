@@ -37,7 +37,7 @@ public class TodoController {
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo){
         Todo saveTodo = todoService.save(todo);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location",TODO_PATCH +"/" + saveTodo.getId().toString());
+        headers.add("Location",TODO_PATCH +"/" + saveTodo.getId());
         return new ResponseEntity<>(headers,HttpStatus.CREATED);
     }
 
