@@ -9,10 +9,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -38,7 +36,6 @@ public class TodoController {
     @PostMapping(TODO_PATCH)
     public ResponseEntity<Todo> createTodo(@RequestBody Todo todo){
         Todo saveTodo = todoService.save(todo);
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location",TODO_PATCH +"/" + saveTodo.getId());
         return new ResponseEntity<>(headers,HttpStatus.CREATED);
