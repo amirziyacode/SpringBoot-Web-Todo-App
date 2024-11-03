@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+spring.application.name=todo-web
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/yourDB
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.datasource.username=postgres
+spring.datasource.password=yourPassword
+spring.jpa.show-sql=true
+=======
+spring.application.name=todo-webs
+>>>>>>> 2695ee6 (change-name)
