@@ -36,6 +36,7 @@ class TodoServiceImplTest {
     @Captor
     ArgumentCaptor<Integer> uuidArgumentCaptor;
 
+
     TodoServiceImpl todoServiceImp;
 
 
@@ -68,7 +69,7 @@ class TodoServiceImplTest {
 
     @Test
     void crete_Todo() throws Exception {
-        Todo todo = todoServiceImp.getAll().get(0);;
+        Todo todo = todoServiceImp.getAll().get(0);
         given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get(1));
         mockMvc.perform(post(TodoController.TODO_PATCH)
                         .accept(MediaType.APPLICATION_JSON)
@@ -85,5 +86,20 @@ class TodoServiceImplTest {
 
         verify(todoService).delete(uuidArgumentCaptor.capture());
         Assertions.assertThat(delTodo.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+    }
+
+
+    @Test
+    void updateTodo()throws  Exception{
+        Todo updateTodo = todoServiceImp.getAll().get(0);
+        String des = "Work on Project !";
+        updateTodo.setDescription(des);
+        mockMvc.perform(put(TodoController.TODO_ID,updateTodo.getId())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updateTodo))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+        verify(todoService).update(any(Integer.class),any(Todo.class));
+        Assertions.assertThat(updateTodo.getDescription()).isEqualTo(des);
     }
 }

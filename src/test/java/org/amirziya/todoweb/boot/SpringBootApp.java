@@ -15,7 +15,7 @@ class SpringBootApp {
     TodoRepo todoRepo;
 
     @Test
-    public void countTodos(){
+    void countTodos(){
         assertThat(todoRepo.count()).isEqualTo(3);
     }
 
