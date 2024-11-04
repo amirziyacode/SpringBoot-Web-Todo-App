@@ -1,12 +1,17 @@
 package org.amirziya.todoweb.service;
 
 import org.amirziya.todoweb.model.Todo;
+import org.amirziya.todoweb.repo.TodoRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
 
 @Service
 public class TodoServiceImpl implements TodoService {
+
+    @Autowired
+    TodoRepo todoRepo;
 
     private final Map<Integer, Todo> todoMap;
 
@@ -37,7 +42,8 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public List<Todo> getAll() {
-        return new ArrayList<>(todoMap.values());
+
+        return new ArrayList<> (todoRepo.findAll());
     }
 
     @Override
