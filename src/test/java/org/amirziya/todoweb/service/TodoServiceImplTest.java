@@ -14,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
+import java.util.UUID;
+
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,7 +36,7 @@ class TodoServiceImplTest {
     ObjectMapper objectMapper;
 
     @Captor
-    ArgumentCaptor<Integer> uuidArgumentCaptor;
+    ArgumentCaptor<UUID> uuidArgumentCaptor;
 
 
     TodoServiceImpl todoServiceImp;
@@ -49,7 +51,7 @@ class TodoServiceImplTest {
     @Test
     void get_Todo_By_Id() throws Exception {
          Todo testodo = Todo.builder()
-                 .id(1)
+                 .id(UUID.randomUUID())
                  .build();
          given(todoService.getById(testodo.getId())).willReturn(Optional.of(testodo));
         mockMvc.perform(get(TodoController.TODO_ID,testodo.getId()).contentType(MediaType.APPLICATION_JSON))
@@ -99,7 +101,7 @@ class TodoServiceImplTest {
                         .content(objectMapper.writeValueAsString(updateTodo))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
-        verify(todoService).update(any(Integer.class),any(Todo.class));
+        verify(todoService).update(any(UUID.class),any(Todo.class));
         Assertions.assertThat(updateTodo.getDescription()).isEqualTo(des);
     }
 }

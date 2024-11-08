@@ -10,19 +10,18 @@ import java.util.*;
 @Service
 public class TodoServiceImpl implements TodoService {
 
-    @Autowired
+
     TodoRepo todoRepo;
 
 
     @Override
     public List<Todo> getAll() {
-
-        return new ArrayList<> (todoRepo.findAll());
+        return todoRepo.findAll();
     }
 
     @Override
-    public Optional<Todo> getById(int id) {
-        return Optional.ofNullable(todoRepo.findById(id));
+    public Optional<Todo> getById(UUID id) {
+        return todoRepo.findById(id);
     }
 
     @Override
@@ -38,17 +37,18 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void update(int id, Todo todo) {
-        Todo updateTodo = todoRepo.findById(id);
-        updateTodo.setDescription(todo.getDescription());
-        updateTodo.setTitle(todo.getTitle());
-        updateTodo.setDO(todo.isDO());
-        todoRepo.save(updateTodo);
+    public void update(UUID id, Todo todo) {
+        todoRepo.findById(id).ifPresent(foundTodo -> {
+            foundTodo.setDescription(todo.getDescription());
+            foundTodo.setDO(todo.isDO());
+            foundTodo.setTitle(todo.getTitle());
+            todoRepo.save(foundTodo);
+        });
     }
 
 
     @Override
-    public void delete(int id) {
+    public void delete(UUID id) {
         todoRepo.deleteById(id);
     }
 }

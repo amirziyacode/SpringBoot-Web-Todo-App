@@ -8,12 +8,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class SpringBoot implements CommandLineRunner {
 
-    @Autowired
-    TodoRepo todoRepo;
+    public  final TodoRepo todoRepo;
 
     @Transactional
     @Override
