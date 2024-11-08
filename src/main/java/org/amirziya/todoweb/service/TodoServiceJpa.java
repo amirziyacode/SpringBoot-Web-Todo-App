@@ -22,17 +22,27 @@ public class TodoServiceJpa implements TodoService {
 
     @Override
     public Optional<Todo> getById(int id) {
-        return Optional.of(todoRepo.getReferenceById(id));
+        return Optional.of(todoRepo.findById(id)).orElse(null);
     }
 
     @Override
     public Todo save(Todo todo) {
-        return null;
+        Todo newTodo = Todo.builder()
+                .title(todo.getTitle())
+                .description(todo.getDescription())
+                .isDO(todo.isDO())
+                .build();
+        todoRepo.save(newTodo);
+        return newTodo;
     }
 
     @Override
-    public void update(int id, Todo upTodo) {
-
+    public void update(int id, Todo todo) {
+        Todo updTodo = todoRepo.getReferenceById(id);
+        updTodo.setTitle(todo.getTitle());
+        updTodo.setDescription(todo.getDescription());
+        updTodo.setDO(todo.isDO());
+        todoRepo.save(updTodo);
     }
 
     @Override

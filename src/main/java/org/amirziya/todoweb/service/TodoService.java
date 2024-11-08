@@ -10,6 +10,6 @@ public interface TodoService {
     List<Todo> getAll();
     Optional<Todo> getById(int id);
     Todo save(Todo todo);
-    void update(int id, Todo upTodo);
+    void update(int id, Todo todo);
     void delete(int id);
 }
