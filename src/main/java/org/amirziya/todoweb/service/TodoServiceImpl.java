@@ -1,6 +1,5 @@
 package org.amirziya.todoweb.service;
 import org.amirziya.todoweb.model.Todo;
-import org.amirziya.todoweb.repo.TodoRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -9,17 +8,36 @@ import java.util.*;
 @Service
 public class TodoServiceImpl implements TodoService {
 
-    private TodoRepo todoRepo;
+    private final Map<Integer,Todo> todoMap;
 
+    public  TodoServiceImpl(){
+        todoMap =  new HashMap<>();
+        Todo todo = Todo.builder()
+                .title("Sport")
+                .description("Play FootBall !")
+                .build();
+        Todo todo1 = Todo.builder()
+                .title("Study")
+                .description("Learn Math !")
+                .build();
 
+        Todo todo2 = Todo.builder()
+                .title("Work")
+                .description("Do Todos !")
+                .build();
+
+        todoMap.put(1,todo);
+        todoMap.put(2,todo1);
+        todoMap.put(3,todo2);
+    }
     @Override
     public List<Todo> getAll() {
-        return null;
+        return new ArrayList<>(todoMap.values());
     }
 
     @Override
     public Optional<Todo> getById(int id) {
-        return Optional.of(todoRepo.findById(id)).orElse(null);
+        return Optional.of(todoMap.get(id));
     }
 
     @Override
@@ -30,22 +48,18 @@ public class TodoServiceImpl implements TodoService {
                 .isDO(todo.isDO())
                 .build();
 
-        todoRepo.save(newTodo);
+//        todoMap.put(todoMap.size() +1,newTodo);
         return newTodo;
     }
 
     @Override
     public void update(int id, Todo todo) {
-//        Todo updateTodo = todoRepo.findById(id);
-//        updateTodo.setDescription(todo.getDescription());
-//        updateTodo.setTitle(todo.getTitle());
-//        updateTodo.setDO(todo.isDO());
-//        todoRepo.save(updateTodo);
+
     }
 
 
     @Override
     public void delete(int id) {
-        todoRepo.deleteById(id);
+
     }
 }

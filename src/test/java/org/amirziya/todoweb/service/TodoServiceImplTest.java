@@ -38,12 +38,12 @@ class TodoServiceImplTest {
     @Captor
     ArgumentCaptor<Integer> uuidArgumentCaptor;
 
-    TodoServiceJpa todoServiceJpa;
+    TodoServiceImpl todoServiceImp;
 
 
     @BeforeEach
     void setUp(){
-
+        todoServiceImp = new TodoServiceImpl();
     }
 
 
@@ -59,7 +59,7 @@ class TodoServiceImplTest {
 
     @Test
     void get_All_And_Count() throws Exception {
-        given(todoService.getAll()).willReturn(todoServiceJpa.getAll());
+        given(todoService.getAll()).willReturn(todoServiceImp.getAll());
         mockMvc.perform(get(TodoController.TODO_PATCH).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()",is(3))) // length for json
@@ -70,8 +70,8 @@ class TodoServiceImplTest {
 
     @Test
     void crete_Todo() throws Exception {
-        Todo todo = todoServiceJpa.getAll().get(0);
-        given(todoService.save(any(Todo.class))).willReturn(todoServiceJpa.getAll().get(1));
+        Todo todo = todoServiceImp.getAll().get(0);
+        given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get(1));
         mockMvc.perform(post(TodoController.TODO_PATCH)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -81,7 +81,7 @@ class TodoServiceImplTest {
     }
     @Test
     void delete_Todo() throws Exception{
-        Todo delTodo = todoServiceJpa.getAll().get(0);
+        Todo delTodo = todoServiceImp.getAll().get(0);
         mockMvc.perform(delete(TodoController.TODO_ID,delTodo.getId())
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
 
@@ -92,7 +92,7 @@ class TodoServiceImplTest {
 
     @Test
     void updateTodo()throws  Exception{
-        Todo updateTodo = todoServiceJpa.getAll().get(0);
+        Todo updateTodo = todoServiceImp.getAll().get(0);
         String des = "Work on Project !";
         updateTodo.setDescription(des);
         mockMvc.perform(put(TodoController.TODO_ID,updateTodo.getId())
