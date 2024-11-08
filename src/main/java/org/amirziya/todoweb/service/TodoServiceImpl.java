@@ -11,7 +11,8 @@ import java.util.*;
 public class TodoServiceImpl implements TodoService {
 
 
-    TodoRepo todoRepo;
+    @Autowired
+   public  TodoRepo todoRepo;
 
 
     @Override
@@ -21,6 +22,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Optional<Todo> getById(UUID id) {
+
         return todoRepo.findById(id);
     }
 

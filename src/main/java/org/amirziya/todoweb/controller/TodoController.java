@@ -4,6 +4,7 @@ package org.amirziya.todoweb.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.amirziya.todoweb.model.Todo;
+import org.amirziya.todoweb.repo.TodoRepo;
 import org.amirziya.todoweb.service.TodoService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,11 +23,12 @@ public class TodoController {
     public static final String TODO_ID = TODO_PATCH + "/" + "{todoId}";
 
     public final TodoService todoService;
+    public final TodoRepo todoRepo;
 
 
     @GetMapping(value = TODO_PATCH)
     public ResponseEntity<List<Todo>> listTodo(){
-        return new ResponseEntity<>(todoService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(todoRepo.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = TODO_ID)

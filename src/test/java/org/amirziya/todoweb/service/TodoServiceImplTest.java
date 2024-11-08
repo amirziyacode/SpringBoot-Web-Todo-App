@@ -71,8 +71,8 @@ class TodoServiceImplTest {
 
     @Test
     void crete_Todo() throws Exception {
-        Todo todo = todoServiceImp.getAll().get(0);
-        given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get(1));
+        Todo todo = todoServiceImp.getAll().get().get(0);
+        given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get().get(1));
         mockMvc.perform(post(TodoController.TODO_PATCH)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -82,7 +82,7 @@ class TodoServiceImplTest {
     }
     @Test
     void delete_Todo() throws Exception{
-        Todo delTodo = todoServiceImp.getAll().get(0);
+        Todo delTodo = todoServiceImp.getAll().get().get(0);
         mockMvc.perform(delete(TodoController.TODO_ID,delTodo.getId())
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
 
@@ -93,7 +93,7 @@ class TodoServiceImplTest {
 
     @Test
     void updateTodo()throws  Exception{
-        Todo updateTodo = todoServiceImp.getAll().get(0);
+        Todo updateTodo = todoServiceImp.getAll().get().get(0);
         String des = "Work on Project !";
         updateTodo.setDescription(des);
         mockMvc.perform(put(TodoController.TODO_ID,updateTodo.getId())
