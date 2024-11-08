@@ -1,28 +1,25 @@
 package org.amirziya.todoweb.service;
-
 import org.amirziya.todoweb.model.Todo;
 import org.amirziya.todoweb.repo.TodoRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 
 @Service
 public class TodoServiceImpl implements TodoService {
 
-    @Autowired
-    TodoRepo todoRepo;
+    private TodoRepo todoRepo;
 
 
     @Override
     public List<Todo> getAll() {
-
-        return new ArrayList<> (todoRepo.findAll());
+        return null;
     }
 
     @Override
     public Optional<Todo> getById(int id) {
-        return Optional.ofNullable(todoRepo.findById(id));
+        return Optional.of(todoRepo.findById(id)).orElse(null);
     }
 
     @Override
@@ -39,11 +36,11 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void update(int id, Todo todo) {
-        Todo updateTodo = todoRepo.findById(id);
-        updateTodo.setDescription(todo.getDescription());
-        updateTodo.setTitle(todo.getTitle());
-        updateTodo.setDO(todo.isDO());
-        todoRepo.save(updateTodo);
+//        Todo updateTodo = todoRepo.findById(id);
+//        updateTodo.setDescription(todo.getDescription());
+//        updateTodo.setTitle(todo.getTitle());
+//        updateTodo.setDO(todo.isDO());
+//        todoRepo.save(updateTodo);
     }
 
 

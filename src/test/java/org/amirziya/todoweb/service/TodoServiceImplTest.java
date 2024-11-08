@@ -3,6 +3,7 @@ package org.amirziya.todoweb.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.amirziya.todoweb.controller.TodoController;
 import org.amirziya.todoweb.model.Todo;
+import org.amirziya.todoweb.repo.TodoRepo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.Captor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
@@ -36,13 +38,12 @@ class TodoServiceImplTest {
     @Captor
     ArgumentCaptor<Integer> uuidArgumentCaptor;
 
-
-    TodoServiceImpl todoServiceImp;
+    TodoServiceJpa todoServiceJpa;
 
 
     @BeforeEach
     void setUp(){
-        todoServiceImp = new TodoServiceImpl();
+
     }
 
 
@@ -58,7 +59,7 @@ class TodoServiceImplTest {
 
     @Test
     void get_All_And_Count() throws Exception {
-        given(todoService.getAll()).willReturn(todoServiceImp.getAll());
+        given(todoService.getAll()).willReturn(todoServiceJpa.getAll());
         mockMvc.perform(get(TodoController.TODO_PATCH).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()",is(3))) // length for json
@@ -69,8 +70,8 @@ class TodoServiceImplTest {
 
     @Test
     void crete_Todo() throws Exception {
-        Todo todo = todoServiceImp.getAll().get(0);
-        given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get(1));
+        Todo todo = todoServiceJpa.getAll().get(0);
+        given(todoService.save(any(Todo.class))).willReturn(todoServiceJpa.getAll().get(1));
         mockMvc.perform(post(TodoController.TODO_PATCH)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -80,7 +81,7 @@ class TodoServiceImplTest {
     }
     @Test
     void delete_Todo() throws Exception{
-        Todo delTodo = todoServiceImp.getAll().get(0);
+        Todo delTodo = todoServiceJpa.getAll().get(0);
         mockMvc.perform(delete(TodoController.TODO_ID,delTodo.getId())
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
 
@@ -91,7 +92,7 @@ class TodoServiceImplTest {
 
     @Test
     void updateTodo()throws  Exception{
-        Todo updateTodo = todoServiceImp.getAll().get(0);
+        Todo updateTodo = todoServiceJpa.getAll().get(0);
         String des = "Work on Project !";
         updateTodo.setDescription(des);
         mockMvc.perform(put(TodoController.TODO_ID,updateTodo.getId())
