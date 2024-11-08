@@ -37,7 +37,7 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Optional<Todo> getById(int id) {
-        return Optional.of(todoMap.get(id));
+        return Optional.of(null);
     }
 
     @Override
@@ -50,6 +50,11 @@ public class TodoServiceImpl implements TodoService {
 
 //        todoMap.put(todoMap.size() +1,newTodo);
         return newTodo;
+    }
+
+    @Override
+    public Boolean setIsDo(int id, Todo todo) {
+        return false;
     }
 
     @Override
