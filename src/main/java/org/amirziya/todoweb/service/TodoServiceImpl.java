@@ -53,7 +53,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void setIsDo(int id, Boolean isDo) {
+    public void setIsDo(int id, Todo isDo) {
     }
 
     @Override

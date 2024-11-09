@@ -10,7 +10,7 @@ public interface TodoService {
     List<Todo> getAll();
     Optional<Todo> getById(int id);
     Todo save(Todo todo);
-    void setIsDo(int id, Boolean isDo);
+    void setIsDo(int id, Todo isDo);
     void update(int id, Todo todo);
     void delete(int id);
 }
