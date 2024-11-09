@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -86,9 +88,22 @@ class TodoServiceImplTest {
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
 
         verify(todoService).delete(uuidArgumentCaptor.capture());
-        Assertions.assertThat(delTodo.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+        assertThat(delTodo.getId()).isEqualTo(uuidArgumentCaptor.getValue());
     }
 
+    @Test
+    void setDo() throws Exception {
+        Todo todo = todoServiceImp.getAll().get(1);
+        todo.setDO(true);
+        mockMvc.perform(put("http://localhost:8080/api/v1/todos/do/{todoId}",todo.getId())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(todo))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(todoService).setIsDo(any(Integer.class),any(Todo.class));
+        assertThat(todo.isDO()).isEqualTo(true);
+    }
 
     @Test
     void updateTodo()throws  Exception{
@@ -101,6 +116,6 @@ class TodoServiceImplTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
         verify(todoService).update(any(Integer.class),any(Todo.class));
-        Assertions.assertThat(updateTodo.getDescription()).isEqualTo(des);
+        assertThat(updateTodo.getDescription()).isEqualTo(des);
     }
 }
