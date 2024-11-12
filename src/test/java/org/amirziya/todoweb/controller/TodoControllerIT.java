@@ -44,6 +44,21 @@ class TodoControllerIT {
 
     @Test
     @Transactional
+    void update_Todo(){
+        Todo todo = todoRepo.findAll().get(0);
+        todo.setTitle("Updated Title");
+        todo.setDescription("Updated Description");
+
+        ResponseEntity<Todo> upTodo = todoController.updateTodo(todo.getId(),todo);
+
+        assertThat(upTodo.getStatusCode()).isEqualTo(HttpStatusCode.valueOf( 204));
+        Todo byId = todoRepo.findById(todo.getId()).get();
+        assertThat(byId.getTitle()).isEqualTo(todo.getTitle());
+        assertThat(byId.getDescription()).isEqualTo(todo.getDescription());
+    }
+
+    @Test
+    @Transactional
     @Rollback
     void save_Todo_in_db(){
         Todo newTodo = Todo.builder()
