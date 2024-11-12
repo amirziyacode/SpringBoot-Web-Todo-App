@@ -89,6 +89,4 @@ class TodoControllerIT {
         ResponseEntity<List<Todo>> listResponseEntity = todoController.listTodo();
         assertThat(Objects.requireNonNull(listResponseEntity.getBody()).size()).isEqualTo(0);
     }
-
-
 }
