@@ -74,7 +74,7 @@ class TodoControllerIT {
     }
 
     @Test
-    void get_Todo_Id(){
+    void get_Todo_by_Id(){
         Todo first = todoRepo.findAll().get(0);
         ResponseEntity<Optional<Todo>> todoById = todoController.getTodoById(first.getId());
 
