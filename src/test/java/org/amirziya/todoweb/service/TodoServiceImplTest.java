@@ -42,10 +42,12 @@ class TodoServiceImplTest {
 
     TodoServiceImpl todoServiceImp;
 
+    Todo todo;
 
     @BeforeEach
     void setUp(){
         todoServiceImp = new TodoServiceImpl();
+        todo = todoServiceImp.getAll().get(0);
     }
 
 
@@ -72,7 +74,6 @@ class TodoServiceImplTest {
 
     @Test
     void crete_Todo() throws Exception {
-        Todo todo = todoServiceImp.getAll().get(0);
         given(todoService.save(any(Todo.class))).willReturn(todoServiceImp.getAll().get(1));
         mockMvc.perform(post(TodoController.TODO_PATCH)
                         .accept(MediaType.APPLICATION_JSON)
@@ -83,17 +84,15 @@ class TodoServiceImplTest {
     }
     @Test
     void delete_Todo() throws Exception{
-        Todo delTodo = todoServiceImp.getAll().get(0);
-        mockMvc.perform(delete(TodoController.TODO_ID,delTodo.getId())
+        mockMvc.perform(delete(TodoController.TODO_ID,todo.getId())
                 .accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
 
         verify(todoService).delete(uuidArgumentCaptor.capture());
-        assertThat(delTodo.getId()).isEqualTo(uuidArgumentCaptor.getValue());
+        assertThat(todo.getId()).isEqualTo(uuidArgumentCaptor.getValue());
     }
 
     @Test
     void setDo() throws Exception {
-        Todo todo = todoServiceImp.getAll().get(1);
         todo.setDO(true);
         mockMvc.perform(put("http://localhost:8080/api/v1/todos/do/{todoId}",todo.getId())
                         .accept(MediaType.APPLICATION_JSON)
@@ -107,15 +106,14 @@ class TodoServiceImplTest {
 
     @Test
     void updateTodo()throws  Exception{
-        Todo updateTodo = todoServiceImp.getAll().get(0);
         String des = "Work on Project !";
-        updateTodo.setDescription(des);
-        mockMvc.perform(put(TodoController.TODO_ID,updateTodo.getId())
+        todo.setDescription(des);
+        mockMvc.perform(put(TodoController.TODO_ID,todo.getId())
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updateTodo))
+                        .content(objectMapper.writeValueAsString(todo))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
         verify(todoService).update(any(Integer.class),any(Todo.class));
-        assertThat(updateTodo.getDescription()).isEqualTo(des);
+        assertThat(todo.getDescription()).isEqualTo(des);
     }
 }

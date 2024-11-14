@@ -31,9 +31,13 @@ class TodoControllerIT {
 
     MockMvc mockMvc;
 
+    Todo todo;
+
+
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        todo = todoRepo.findAll().get(0);
     }
 
     @Test
@@ -45,7 +49,6 @@ class TodoControllerIT {
     @Test
     @Transactional
     void update_Todo(){
-        Todo todo = todoRepo.findAll().get(0);
         todo.setTitle("Updated Title");
         todo.setDescription("Updated Description");
 
@@ -75,8 +78,8 @@ class TodoControllerIT {
 
     @Test
     void get_Todo_by_Id(){
-        Todo first = todoRepo.findAll().get(0);
-        ResponseEntity<Optional<Todo>> todoById = todoController.getTodoById(first.getId());
+
+        ResponseEntity<Optional<Todo>> todoById = todoController.getTodoById(todo.getId());
 
         assertThat(todoById).isNotNull();
     }
