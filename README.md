@@ -15,7 +15,7 @@ This Applicaiton includs:
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/callicoder/spring-boot-postgresql-jpa-hibernate-rest-api-demo.git
+git clone https://github.com/amirziyacode/SpringBoot-Web-Todo-App.git
 ```
 
 **2. Configure PostgreSQL**
