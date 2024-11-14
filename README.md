@@ -10,5 +10,10 @@ This Applicaiton includs:
   - Full CRUD Controller
   - Jdbc DataBase
 
+## Tests
+![IT](https://github.com/user-attachments/assets/190db404-95ea-4fd8-914a-0e372a5d3d69)
+![Test](https://github.com/user-attachments/assets/d873e911-47b3-4b77-925d-7e4e38719934)
+
+
 ## How Api Works 
 ![Api](https://github.com/user-attachments/assets/0b1506f9-ad1d-4c95-a789-9fdd8e1379a8)
