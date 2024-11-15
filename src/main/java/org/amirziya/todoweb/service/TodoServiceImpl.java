@@ -3,6 +3,7 @@ import org.amirziya.todoweb.model.Todo;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 @Service
@@ -37,19 +38,19 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public Optional<Todo> getById(int id) {
-        return Optional.of(null);
+        return Optional.of(todoMap.get(id));
     }
 
     @Override
     public Todo save(Todo todo) {
-        Todo newTodo = Todo.builder()
+        AtomicReference<Todo> newTodo = new AtomicReference<>(Todo.builder()
                 .title(todo.getTitle())
                 .description(todo.getDescription())
                 .isDO(todo.isDO())
-                .build();
+                .build());
 
 //        todoMap.put(todoMap.size() +1,newTodo);
-        return newTodo;
+        return newTodo.get();
     }
 
     @Override
