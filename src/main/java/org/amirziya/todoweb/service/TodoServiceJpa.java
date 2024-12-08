@@ -6,6 +6,7 @@ import org.amirziya.todoweb.repo.TodoRepo;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,8 @@ public class TodoServiceJpa implements TodoService {
     public Todo save(Todo todo) {
         Todo newTodo = Todo.builder()
                 .title(todo.getTitle())
+                .CreateDate(LocalDate.now())
+                .UpdateDate(LocalDate.now())
                 .description(todo.getDescription())
                 .isDO(todo.isDO())
                 .build();
@@ -50,6 +53,7 @@ public class TodoServiceJpa implements TodoService {
         updTodo.setTitle(todo.getTitle());
         updTodo.setDescription(todo.getDescription());
         updTodo.setDO(todo.isDO());
+        updTodo.setUpdateDate(LocalDate.now());
         todoRepo.save(updTodo);
     }
 
