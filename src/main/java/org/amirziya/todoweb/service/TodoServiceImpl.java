@@ -54,7 +54,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public void setIsDo(int id, Todo isDo) {
+    public Todo setIsDo(int id, Todo isDo) {
+        return isDo;
     }
 
     @Override

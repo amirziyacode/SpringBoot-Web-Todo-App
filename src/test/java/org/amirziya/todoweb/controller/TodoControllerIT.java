@@ -78,12 +78,24 @@ class TodoControllerIT {
 
     @Test
     void get_Todo_by_Id(){
-
         ResponseEntity<Optional<Todo>> todoById = todoController.getTodoById(todo.getId());
-
         assertThat(todoById).isNotNull();
     }
+    @Test
+    @Rollback
+    @Transactional
+    void delete_Todo(){
+        ResponseEntity<Todo> deleteTodo = todoController.deleteTodo(todo.getId());
+        assertThat(deleteTodo.getBody()).isNull();
+    }
 
+    @Test
+    void setTodo(){
+        todo.setDO(true);
+        ResponseEntity<Todo> setTodo = todoController.setDo(todo.getId(),todo);
+        assertThat(setTodo.getBody()).isNotNull();
+        assertThat(setTodo.getBody().isDO()).isEqualTo(true);
+    }
     @Rollback
     @Transactional
     @Test

@@ -40,11 +40,10 @@ public class TodoServiceJpa implements TodoService {
     }
 
     @Override
-    public void setIsDo(int id, Todo todo) {
-        todoRepo.findById(id).ifPresent(foundTodo -> {
-            foundTodo.setDO(todo.isDO());
-            todoRepo.save(foundTodo);
-        });
+    public Todo setIsDo(int id, Todo todo) {
+        Optional<Todo> byId = todoRepo.findById(id);
+        byId.get().setDO(todo.isDO());
+        return byId.get();
     }
 
     @Override

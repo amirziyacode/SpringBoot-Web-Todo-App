@@ -35,8 +35,8 @@ public class TodoController {
 
     @PutMapping("/api/v1/todos/do/{todoId}")
     public ResponseEntity<Todo> setDo(@PathVariable("todoId")int todoId,@RequestBody Todo isDo){
-        todoService.setIsDo(todoId,isDo);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Todo todo = todoService.setIsDo(todoId, isDo);
+        return  ResponseEntity.status(HttpStatus.OK).body(todo);
     }
 
     @PostMapping(TODO_PATCH)
