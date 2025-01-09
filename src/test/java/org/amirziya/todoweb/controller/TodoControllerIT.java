@@ -47,6 +47,11 @@ class TodoControllerIT {
     }
 
     @Test
+    void id_invalid(){
+        assertThatIllegalArgumentException().isThrownBy(()  -> todoController.getTodoById(-99));
+    }
+
+    @Test
     @Transactional
     void update_Todo(){
         todo.setTitle("Updated Title");
