@@ -1,19 +1,21 @@
 package org.amirziya.todoweb.boot;
 
 import lombok.RequiredArgsConstructor;
+import org.amirziya.todoweb.model.Category;
+import org.amirziya.todoweb.model.Priority;
 import org.amirziya.todoweb.model.Todo;
 import org.amirziya.todoweb.repo.TodoRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
 public class SpringBoot implements CommandLineRunner {
 
-    @Autowired
-    TodoRepo todoRepo;
+    private final TodoRepo todoRepo;
 
     @Transactional
     @Override
@@ -23,16 +25,25 @@ public class SpringBoot implements CommandLineRunner {
     public void loadTodos() {
         if(todoRepo.count() == 0) {
             Todo todo = Todo.builder()
-                    .title("Sport")
+                    .priority(Priority.MEDIUM)
+                    .Completed(false)
+                    .CreateDate(LocalDate.now())
+                    .category(Category.PERSONAL)
                     .description("Play FootBall !")
                     .build();
             Todo todo1 = Todo.builder()
-                    .title("Study")
+                    .priority(Priority.HIGH)
+                    .Completed(false)
+                    .CreateDate(LocalDate.now())
+                    .category(Category.EDUCATION)
                     .description("Learn Math !")
                     .build();
 
             Todo todo2 = Todo.builder()
-                    .title("Work")
+                    .priority(Priority.MEDIUM)
+                    .Completed(false)
+                    .CreateDate(LocalDate.now())
+                    .category(Category.PERSONAL)
                     .description("Do Todos !")
                     .build();
 
