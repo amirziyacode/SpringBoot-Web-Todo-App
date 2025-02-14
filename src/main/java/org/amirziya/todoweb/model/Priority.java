@@ -1,3 +1,3 @@
 package org.amirziya.todoweb.model;
 
-public enum Priority {LOW,MEDIUM,HIGH;}
+public enum Priority {LOW,MEDIUM,HIGH}

@@ -1,7 +1,10 @@
 package org.amirziya.todoweb.service;
+import org.amirziya.todoweb.model.Category;
+import org.amirziya.todoweb.model.Priority;
 import org.amirziya.todoweb.model.Todo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -14,17 +17,26 @@ public class TodoServiceImpl implements TodoService {
     public  TodoServiceImpl(){
         todoMap =  new HashMap<>();
         Todo todo = Todo.builder()
-                .title("Sport")
+                .category(Category.PERSONAL)
                 .description("Play FootBall !")
+                .priority(Priority.HIGH)
+                .Completed(false)
+                .CreateDate(LocalDate.now())
                 .build();
         Todo todo1 = Todo.builder()
-                .title("Study")
                 .description("Learn Math !")
+                .category(Category.EDUCATION)
+                .priority(Priority.MEDIUM)
+                .Completed(false)
+                .CreateDate(LocalDate.now())
                 .build();
 
         Todo todo2 = Todo.builder()
-                .title("Work")
+                .category(Category.PERSONAL)
                 .description("Do Todos !")
+                .priority(Priority.HIGH)
+                .Completed(false)
+                .CreateDate(LocalDate.now())
                 .build();
 
         todoMap.put(1,todo);
@@ -44,7 +56,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public Todo save(Todo todo) {
         AtomicReference<Todo> newTodo = new AtomicReference<>(Todo.builder()
-                .title(todo.getTitle())
+                .priority(todo.getPriority())
                 .description(todo.getDescription())
                 .Completed(todo.isCompleted())
                 .build());

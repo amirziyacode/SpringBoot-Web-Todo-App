@@ -44,8 +44,13 @@ public class TodoServiceJpa implements TodoService {
     @Override
     public Todo setIsDo(int id, Todo todo) {
         Optional<Todo> byId = todoRepo.findById(id);
-        byId.get().setCompleted(todo.isCompleted());
-        return byId.get();
+        if(byId.isPresent()){
+            byId.get().setCompleted(todo.isCompleted());
+            return byId.get();
+        }
+        else {
+            throw  new IllegalArgumentException("Invalid id");
+        }
     }
 
     @Override
