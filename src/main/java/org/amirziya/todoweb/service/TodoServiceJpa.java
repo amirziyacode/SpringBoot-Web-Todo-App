@@ -36,7 +36,7 @@ public class TodoServiceJpa implements TodoService {
                 .CreateDate(LocalDate.now())
                 .UpdateDate(LocalDate.now())
                 .description(todo.getDescription())
-                .isDO(todo.isDO())
+                .Completed(todo.isCompleted())
                 .build();
         todoRepo.save(newTodo);
         return newTodo;
@@ -45,7 +45,7 @@ public class TodoServiceJpa implements TodoService {
     @Override
     public Todo setIsDo(int id, Todo todo) {
         Optional<Todo> byId = todoRepo.findById(id);
-        byId.get().setDO(todo.isDO());
+        byId.get().setCompleted(todo.isCompleted());
         return byId.get();
     }
 
@@ -54,7 +54,7 @@ public class TodoServiceJpa implements TodoService {
         Todo updTodo = todoRepo.getReferenceById(id);
         updTodo.setTitle(todo.getTitle());
         updTodo.setDescription(todo.getDescription());
-        updTodo.setDO(todo.isDO());
+        updTodo.setCompleted(todo.isCompleted());
         updTodo.setUpdateDate(LocalDate.now());
         todoRepo.save(updTodo);
     }

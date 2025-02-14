@@ -46,7 +46,7 @@ public class TodoServiceImpl implements TodoService {
         AtomicReference<Todo> newTodo = new AtomicReference<>(Todo.builder()
                 .title(todo.getTitle())
                 .description(todo.getDescription())
-                .isDO(todo.isDO())
+                .Completed(todo.isCompleted())
                 .build());
 
 //        todoMap.put(todoMap.size() +1,newTodo);
