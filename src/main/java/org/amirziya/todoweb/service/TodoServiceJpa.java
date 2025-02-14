@@ -32,11 +32,10 @@ public class TodoServiceJpa implements TodoService {
     @Override
     public Todo save(Todo todo) {
         Todo newTodo = Todo.builder()
-                .title(todo.getTitle())
                 .CreateDate(LocalDate.now())
                 .UpdateDate(LocalDate.now())
                 .description(todo.getDescription())
-                .isDO(todo.isDO())
+                .Completed(todo.isCompleted())
                 .build();
         todoRepo.save(newTodo);
         return newTodo;
@@ -45,24 +44,29 @@ public class TodoServiceJpa implements TodoService {
     @Override
     public Todo setIsDo(int id, Todo todo) {
         Optional<Todo> byId = todoRepo.findById(id);
-        byId.get().setDO(todo.isDO());
+        byId.get().setCompleted(todo.isCompleted());
         return byId.get();
     }
 
     @Override
     public void update(int id, Todo todo) {
-        Todo updTodo = todoRepo.getReferenceById(id);
-        updTodo.setTitle(todo.getTitle());
-        updTodo.setDescription(todo.getDescription());
-        updTodo.setDO(todo.isDO());
-        updTodo.setUpdateDate(LocalDate.now());
-        todoRepo.save(updTodo);
+        Optional<Todo> updTodo = todoRepo.findById(id);
+        if(updTodo.isPresent()) {
+            updTodo.get().setDescription(todo.getDescription());
+            updTodo.get().setCompleted(todo.isCompleted());
+            updTodo.get().setUpdateDate(LocalDate.now());
+            todoRepo.save(updTodo.get());
+        }else {
+            throw  new IllegalArgumentException("Invalid id");
+        }
     }
 
     @Override
     public void delete(int id) {
         if(todoRepo.existsById(id)) {
             todoRepo.deleteById(id);
+        }else {
+            throw  new IllegalArgumentException("Invalid id");
         }
     }
 }

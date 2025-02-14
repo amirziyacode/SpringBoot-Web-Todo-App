@@ -90,7 +90,7 @@ class TodoServiceImplTest {
 
     @Test
     void setDo() throws Exception {
-        todo.setDO(true);
+        todo.setCompleted(true);
         mockMvc.perform(put("http://localhost:8080/api/v1/todos/do/{todoId}",todo.getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(todo))
@@ -98,7 +98,7 @@ class TodoServiceImplTest {
                 .andExpect(status().isOk());
 
         verify(todoService).setIsDo(any(Integer.class),any(Todo.class));
-        assertThat(todo.isDO()).isEqualTo(true);
+        assertThat(todo.isCompleted()).isEqualTo(true);
     }
 
     @Test

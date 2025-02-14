@@ -72,7 +72,7 @@ class TodoControllerIT {
         Todo newTodo = Todo.builder()
                 .title("Test")
                 .description("This is Todo !!")
-                .isDO(false)
+                .Completed(false)
                 .build();
 
         ResponseEntity<Todo> todo = todoController.createTodo(newTodo);
@@ -96,10 +96,10 @@ class TodoControllerIT {
 
     @Test
     void setTodo(){
-        todo.setDO(true);
+        todo.setCompleted(true);
         ResponseEntity<Todo> setTodo = todoController.setDo(todo.getId(),todo);
         assertThat(setTodo.getBody()).isNotNull();
-        assertThat(setTodo.getBody().isDO()).isEqualTo(true);
+        assertThat(setTodo.getBody().isCompleted()).isEqualTo(true);
     }
     @Rollback
     @Transactional
