@@ -1,6 +1,8 @@
 package org.amirziya.todoweb.controller;
 
 import jakarta.transaction.Transactional;
+import org.amirziya.todoweb.model.Category;
+import org.amirziya.todoweb.model.Priority;
 import org.amirziya.todoweb.model.Todo;
 import org.amirziya.todoweb.repo.TodoRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,14 +56,10 @@ class TodoControllerIT {
     @Test
     @Transactional
     void update_Todo(){
-        todo.setTitle("Updated Title");
         todo.setDescription("Updated Description");
-
         ResponseEntity<Todo> upTodo = todoController.updateTodo(todo.getId(),todo);
-
         assertThat(upTodo.getStatusCode()).isEqualTo(HttpStatusCode.valueOf( 204));
         Todo byId = todoRepo.findById(todo.getId()).get();
-        assertThat(byId.getTitle()).isEqualTo(todo.getTitle());
         assertThat(byId.getDescription()).isEqualTo(todo.getDescription());
     }
 
@@ -70,13 +68,12 @@ class TodoControllerIT {
     @Rollback
     void save_Todo_in_db(){
         Todo newTodo = Todo.builder()
-                .title("Test")
                 .description("This is Todo !!")
+                .priority(Priority.MEDIUM)
+                .category(Category.PERSONAL)
                 .Completed(false)
                 .build();
-
         ResponseEntity<Todo> todo = todoController.createTodo(newTodo);
-
         assertThat(todo.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(201));
         assertThat(todo.getHeaders().getLocation()).isNotNull();
     }
