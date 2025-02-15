@@ -14,6 +14,7 @@ public class TodoServiceImpl implements TodoService {
 
     private final Map<Integer,Todo> todoMap;
 
+    // Mock Tasks
     public  TodoServiceImpl(){
         todoMap =  new HashMap<>();
         Todo todo = Todo.builder()
@@ -72,12 +73,9 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void update(int id, Todo todo) {
-
     }
-
 
     @Override
     public void delete(int id) {
-
     }
 }

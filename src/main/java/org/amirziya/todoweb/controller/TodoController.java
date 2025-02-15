@@ -30,7 +30,7 @@ public class TodoController {
 
     @GetMapping(value = TODO_ID)
     public ResponseEntity<Optional<Todo>> getTodoById(@PathVariable("todoId") int  todoId){
-      return new ResponseEntity<>(todoService.getById(todoId),HttpStatus.FOUND);
+      return new ResponseEntity<>(todoService.getById(todoId),HttpStatus.OK);
     }
 
     @PutMapping("/api/v1/todos/do/{todoId}")
