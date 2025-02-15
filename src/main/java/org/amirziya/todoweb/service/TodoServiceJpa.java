@@ -32,6 +32,8 @@ public class TodoServiceJpa implements TodoService {
     @Override
     public Todo save(Todo todo) {
         Todo newTodo = Todo.builder()
+                .category(todo.getCategory())
+                .priority(todo.getPriority())
                 .CreateDate(LocalDate.now())
                 .UpdateDate(LocalDate.now())
                 .description(todo.getDescription())
@@ -58,6 +60,8 @@ public class TodoServiceJpa implements TodoService {
         Optional<Todo> updTodo = todoRepo.findById(id);
         if(updTodo.isPresent()) {
             updTodo.get().setDescription(todo.getDescription());
+            updTodo.get().setCategory(todo.getCategory());
+            updTodo.get().setPriority(todo.getPriority());
             updTodo.get().setCompleted(todo.isCompleted());
             updTodo.get().setUpdateDate(LocalDate.now());
             todoRepo.save(updTodo.get());

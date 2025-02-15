@@ -55,7 +55,7 @@ class TodoServiceImplTest {
                  .build();
          given(todoService.getById(testodo.getId())).willReturn(Optional.of(testodo));
         mockMvc.perform(get(TodoController.TODO_ID,testodo.getId()).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isFound());
+                .andExpect(status().isOk());
     }
 
     @Test
