@@ -22,6 +22,16 @@ public class TodoServiceJpa implements TodoService {
     }
 
     @Override
+    public List<Todo> getCompleteTask() {
+        return todoRepo.findCompleteTasks();
+    }
+
+    @Override
+    public List<Todo> getNotCompleteTask() {
+        return todoRepo.findNotCompleteTasks();
+    }
+
+    @Override
     public Optional<Todo> getById(int id) {
         if(id<0 || todoRepo.findById(id).isEmpty()){
             throw  new IllegalArgumentException("Invalid id");

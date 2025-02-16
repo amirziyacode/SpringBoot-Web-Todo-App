@@ -26,7 +26,7 @@ public class SpringBoot implements CommandLineRunner {
         if(todoRepo.count() == 0) {
             Todo todo = Todo.builder()
                     .priority(Priority.MEDIUM)
-                    .Completed(false)
+                    .Completed(true)
                     .CreateDate(LocalDate.now())
                     .category(Category.PERSONAL)
                     .description("Play FootBall !")

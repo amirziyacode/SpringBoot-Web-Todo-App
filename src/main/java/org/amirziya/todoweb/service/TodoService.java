@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface TodoService {
     List<Todo> getAll();
+    List<Todo> getCompleteTask();
+    List<Todo> getNotCompleteTask();
     Optional<Todo> getById(int id);
     Todo save(Todo todo);
     Todo setIsDo(int id, Todo isDo);
