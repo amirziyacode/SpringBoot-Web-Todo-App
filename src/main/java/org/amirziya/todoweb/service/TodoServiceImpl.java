@@ -50,6 +50,16 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    public List<Todo> getCompleteTask() {
+        return List.of();
+    }
+
+    @Override
+    public List<Todo> getNotCompleteTask() {
+        return List.of();
+    }
+
+    @Override
     public Optional<Todo> getById(int id) {
         return Optional.of(todoMap.get(id));
     }

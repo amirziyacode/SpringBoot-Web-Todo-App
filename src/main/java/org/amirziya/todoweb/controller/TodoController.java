@@ -58,4 +58,14 @@ public class TodoController {
         todoService.update(todoId, todo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/api/v1/todos/NotCompleted")
+    public ResponseEntity<List<Todo>> getNotCompletedTasks(){
+        return  ResponseEntity.status(HttpStatus.OK).body(todoService.getNotCompleteTask());
+    }
+
+    @GetMapping("/api/v1/todos/Completed")
+    public ResponseEntity<List<Todo>> getCompletedTasks(){
+        return ResponseEntity.status(HttpStatus.OK).body(todoService.getCompleteTask());
+    }
+
 }
