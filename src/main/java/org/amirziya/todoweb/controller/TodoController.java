@@ -15,7 +15,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000") // port react App !!
+@CrossOrigin(origins = "http://localhost:5173") // port react App !!  => http://localhost:3000
 public class TodoController {
     public static final String TODO_PATCH = "/api/v1/todos";
     public static final String TODO_ID = TODO_PATCH + "/" + "{todoId}";
